@@ -8,8 +8,9 @@ public class Mascota {
     private String raza;
     private int edad;
     private String estado;
-    private int popularidad;
-    private int diasRefugio;
+    private String zona;
+    private int urgencia;
+    private int diasDesaparecida;
 
     public Mascota(int id,
                    String nombre,
@@ -17,8 +18,9 @@ public class Mascota {
                    String raza,
                    int edad,
                    String estado,
-                   int popularidad,
-                   int diasRefugio) {
+                   String zona,
+                   int urgencia,
+                   int diasDesaparecida) {
 
         this.id = id;
         this.nombre = nombre;
@@ -26,8 +28,9 @@ public class Mascota {
         this.raza = raza;
         this.edad = edad;
         this.estado = estado;
-        this.popularidad = popularidad;
-        this.diasRefugio = diasRefugio;
+        this.zona = zona;
+        this.urgencia = urgencia;
+        this.diasDesaparecida = diasDesaparecida;
     }
 
     public int getId() {
@@ -54,16 +57,43 @@ public class Mascota {
         return estado;
     }
 
-    public int getPopularidad() {
-        return popularidad;
+    public String getZona() {
+        return zona;
     }
 
-    public int getDiasRefugio() {
-        return diasRefugio;
+    public int getUrgencia() {
+        return urgencia;
+    }
+
+    public int getDiasDesaparecida() {
+        return diasDesaparecida;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+
+    public void setUrgencia(int urgencia) {
+        this.urgencia = urgencia;
+    }
+
+    public void setDiasDesaparecida(int diasDesaparecida) {
+        this.diasDesaparecida = diasDesaparecida;
     }
 
     @Override
     public String toString() {
-        return id + " - " + nombre + " - " + especie;
+        return id + " | " + nombre +
+                " | " + especie +
+                " | " + raza +
+                " | Edad: " + edad +
+                " | Estado: " + estado +
+                " | Zona: " + zona +
+                " | Urgencia: " + urgencia +
+                " | Días desaparecida: " + diasDesaparecida;
     }
 }
