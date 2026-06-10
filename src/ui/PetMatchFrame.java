@@ -29,7 +29,7 @@ public class PetMatchFrame extends JFrame {
     public PetMatchFrame() {
         service = new PetMatchService();
 
-        setTitle("PetMatch Rescue - Entrega 1");
+        setTitle("PetMatch Rescue");
         setSize(950, 650);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
