@@ -20,13 +20,13 @@ public class PetMatchService {
     }
 
     private void cargarDatosIniciales() {
-        registrarMascota(new Mascota(1, "Luna", "Perro", "Mestiza", 3,
+        registrarMascota(new Mascota(1, "Luna", "Perro", "Mestiza", "3 años",
                 "Perdida", "Los Olivos", 10, 2));
 
-        registrarMascota(new Mascota(2, "Michi", "Gato", "Criollo", 2,
+        registrarMascota(new Mascota(2, "Michi", "Gato", "Criollo", "2 años",
                 "Encontrada", "San Miguel", 7, 1));
 
-        registrarMascota(new Mascota(3, "Rocky", "Perro", "Labrador", 5,
+        registrarMascota(new Mascota(3, "Rocky", "Perro", "Labrador", "5 meses",
                 "Perdida", "Miraflores", 9, 5));
     }
 

@@ -6,7 +6,7 @@ public class Mascota {
     private String nombre;
     private String especie;
     private String raza;
-    private int edad;
+    private String edad;
     private String estado;
     private String zona;
     private int urgencia;
@@ -16,7 +16,7 @@ public class Mascota {
                    String nombre,
                    String especie,
                    String raza,
-                   int edad,
+                   String edad,
                    String estado,
                    String zona,
                    int urgencia,
@@ -49,7 +49,7 @@ public class Mascota {
         return raza;
     }
 
-    public int getEdad() {
+    public String getEdad() {
         return edad;
     }
 

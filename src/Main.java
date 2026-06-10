@@ -1,7 +1,9 @@
+import ui.PetMatchFrame;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("PetMatch Rescue iniciado correctamente.");
+        new PetMatchFrame();
     }
 
 }
