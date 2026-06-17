@@ -141,9 +141,6 @@ Se implementó una jerarquía de usuarios utilizando herencia mediante una clase
 
 | Elemento | Clase | Uso dentro del sistema |
 |---|---|---|
-| Lista doblemente enlazada | ListaDobleMascotas | Almacenar reportes de mascotas |
-| Pila | PilaAcciones | Registrar historial de acciones |
-| Cola de prioridad | ColaPrioridadAlertas | Gestionar alertas urgentes |
 | Árbol binario de búsqueda | ArbolMascotas | Buscar reportes rápidamente por ID |
 | Grafo | GrafoZonas | Registrar seguimiento de avistamientos |
 | Quick Sort | Ordenamientos | Ordenar reportes por urgencia |
