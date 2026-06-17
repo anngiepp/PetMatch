@@ -85,30 +85,101 @@ La pila se utiliza para almacenar el historial de acciones realizadas dentro del
 
 ---
 
+# Avance Entrega 2
+
+Durante la segunda entrega se incorporaron estructuras de datos no lineales, algoritmos de ordenamiento y conceptos adicionales de Programación Orientada a Objetos.
+
+## Árbol Binario de Búsqueda
+
+El árbol binario se utiliza para realizar búsquedas rápidas de reportes mediante su identificador único (ID).
+
+![Árbol de Búsqueda](evidencias/arbol-busqueda.png)
+
+---
+
+## Recorrido InOrder
+
+Se implementó el recorrido InOrder para visualizar los reportes organizados por ID.
+
+![Recorrido InOrder](evidencias/arbol-inorder.png)
+
+---
+
+## Quick Sort
+
+Quick Sort permite ordenar los reportes según el nivel de urgencia de cada caso.
+
+![Quick Sort](evidencias/ordenamiento-urgencia.png)
+
+---
+
+## Insertion Sort
+
+Insertion Sort permite ordenar los reportes según los días que la mascota lleva desaparecida.
+
+![Insertion Sort](evidencias/ordenamiento-dias.png)
+
+---
+
+## Seguimiento de Avistamientos
+
+Se implementó un grafo para registrar avistamientos realizados por diferentes usuarios y generar una ruta probable de desplazamiento de la mascota.
+
+![Seguimiento de Avistamientos](evidencias/seguimiento-avistamientos.png)
+
+---
+
+## Herencia de Usuarios
+
+Se implementó una jerarquía de usuarios utilizando herencia mediante una clase padre Usuario y las clases hijas Reportante, Voluntario y Administrador.
+
+![Usuarios del Sistema](evidencias/usuarios-herencia.png)
+
+---
+
+# Estructuras y Algoritmos Implementados
+
+| Elemento | Clase | Uso dentro del sistema |
+|---|---|---|
+| Lista doblemente enlazada | ListaDobleMascotas | Almacenar reportes de mascotas |
+| Pila | PilaAcciones | Registrar historial de acciones |
+| Cola de prioridad | ColaPrioridadAlertas | Gestionar alertas urgentes |
+| Árbol binario de búsqueda | ArbolMascotas | Buscar reportes rápidamente por ID |
+| Grafo | GrafoZonas | Registrar seguimiento de avistamientos |
+| Quick Sort | Ordenamientos | Ordenar reportes por urgencia |
+| Insertion Sort | Ordenamientos | Ordenar reportes por días desaparecida |
+| Herencia | Usuario, Reportante, Voluntario, Administrador | Representar tipos de usuarios del sistema |
+
+---
+
 # Estructura del Proyecto
 
 ```text
 src
 ├── models
-│   └── Mascota.java
+│   ├── Mascota.java
+│   ├── Usuario.java
+│   ├── Reportante.java
+│   ├── Voluntario.java
+│   └── Administrador.java
+│
 ├── services
 │   └── PetMatchService.java
+│
 ├── structures
 │   ├── NodoMascota.java
 │   ├── ListaDobleMascotas.java
 │   ├── PilaAcciones.java
-│   └── ColaPrioridadAlertas.java
+│   ├── ColaPrioridadAlertas.java
+│   ├── ArbolMascotas.java
+│   └── GrafoZonas.java
+│
+├── sorting
+│   └── Ordenamientos.java
+│
 ├── ui
 │   └── PetMatchFrame.java
+│
 └── Main.java
-```
 
 ---
-
-# Conclusiones
-
-1. Implementé una aplicación funcional utilizando estructuras de datos desarrolladas desde cero.
-
-2. Integré una lista doblemente enlazada, una pila y una cola de prioridad dentro de un caso práctico relacionado con mascotas perdidas.
-
-3. Apliqué conceptos de Programación Orientada a Objetos para organizar el proyecto de manera modular y facilitar su mantenimiento.
