@@ -28,11 +28,16 @@ public class PetMatchFrame extends JFrame {
 
     private JTextField txtIdBusquedaRapida;
 
+    private JTextField txtMascotaAvistamiento;
+    private JTextField txtUltimaZona;
+    private JTextField txtPersonaReporta;
+    private JTextField txtComentarioAvistamiento;
+
     public PetMatchFrame() {
         service = new PetMatchService();
 
         setTitle("PetMatch Rescue - Entrega 2");
-        setSize(950, 700);
+        setSize(1000, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -43,13 +48,14 @@ public class PetMatchFrame extends JFrame {
         pestanas.addTab("Historial", crearPanelHistorial());
         pestanas.addTab("Centro de Busqueda", crearPanelCentroBusqueda());
         pestanas.addTab("Organizacion de Reportes", crearPanelOrganizacionReportes());
+        pestanas.addTab("Seguimiento de Avistamientos", crearPanelSeguimientoAvistamientos());
 
         areaResultado = new JTextArea();
         areaResultado.setEditable(false);
         areaResultado.setFont(new Font("Consolas", Font.PLAIN, 14));
 
         JScrollPane scroll = new JScrollPane(areaResultado);
-        scroll.setPreferredSize(new Dimension(950, 240));
+        scroll.setPreferredSize(new Dimension(1000, 240));
 
         add(pestanas, BorderLayout.CENTER);
         add(scroll, BorderLayout.SOUTH);
@@ -269,8 +275,52 @@ public class PetMatchFrame extends JFrame {
         panel.add(btnOrdenarDias, gbc);
 
         btnOrdenarUrgencia.addActionListener(e -> areaResultado.setText(service.ordenarPorUrgencia()));
-
         btnOrdenarDias.addActionListener(e -> areaResultado.setText(service.ordenarPorDiasDesaparecida()));
+
+        return panel;
+    }
+
+    private JPanel crearPanelSeguimientoAvistamientos() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
+
+        txtMascotaAvistamiento = new JTextField();
+        txtUltimaZona = new JTextField();
+        txtPersonaReporta = new JTextField();
+        txtComentarioAvistamiento = new JTextField();
+
+        JLabel titulo = new JLabel("Seguimiento de avistamientos");
+        titulo.setFont(new Font("Arial", Font.BOLD, 18));
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        panel.add(titulo, gbc);
+
+        gbc.gridwidth = 1;
+
+        agregarCampo(panel, gbc, 1, "Mascota reportada:", txtMascotaAvistamiento);
+        agregarCampo(panel, gbc, 2, "Ultima zona donde fue vista:", txtUltimaZona);
+        agregarCampo(panel, gbc, 3, "Persona que reporta:", txtPersonaReporta);
+        agregarCampo(panel, gbc, 4, "Comentario:", txtComentarioAvistamiento);
+
+        JButton btnRegistrarAvistamiento = new JButton("Registrar ultimo avistamiento");
+        JButton btnVerSeguimiento = new JButton("Ver seguimiento");
+
+        gbc.gridy = 5;
+        gbc.gridx = 0;
+        panel.add(btnRegistrarAvistamiento, gbc);
+
+        gbc.gridx = 1;
+        panel.add(btnVerSeguimiento, gbc);
+
+        btnRegistrarAvistamiento.addActionListener(e -> registrarAvistamiento());
+        btnVerSeguimiento.addActionListener(e -> areaResultado.setText(service.mostrarSeguimientoAvistamientos()));
 
         return panel;
     }
@@ -374,6 +424,28 @@ public class PetMatchFrame extends JFrame {
         } catch (Exception e) {
             areaResultado.setText("Error: ingresa una prioridad valida.");
         }
+    }
+
+    private void registrarAvistamiento() {
+        String mascota = txtMascotaAvistamiento.getText();
+        String ultimaZona = txtUltimaZona.getText();
+        String persona = txtPersonaReporta.getText();
+        String comentario = txtComentarioAvistamiento.getText();
+
+        if (mascota.isEmpty() || ultimaZona.isEmpty() || persona.isEmpty() || comentario.isEmpty()) {
+            areaResultado.setText("Error: completa todos los campos del avistamiento.");
+            return;
+        }
+
+        service.registrarAvistamiento(mascota, ultimaZona, persona, comentario);
+
+        areaResultado.setText("Avistamiento registrado correctamente.\n\n"
+                + service.mostrarSeguimientoAvistamientos());
+
+        txtMascotaAvistamiento.setText("");
+        txtUltimaZona.setText("");
+        txtPersonaReporta.setText("");
+        txtComentarioAvistamiento.setText("");
     }
 
     private void limpiarCamposReporte() {

@@ -1,11 +1,12 @@
 package services;
 
 import models.Mascota;
+import sorting.Ordenamientos;
 import structures.ArbolMascotas;
 import structures.ColaPrioridadAlertas;
+import structures.GrafoZonas;
 import structures.ListaDobleMascotas;
 import structures.PilaAcciones;
-import sorting.Ordenamientos;
 
 public class PetMatchService {
 
@@ -13,12 +14,14 @@ public class PetMatchService {
     private PilaAcciones pilaAcciones;
     private ColaPrioridadAlertas colaAlertas;
     private ArbolMascotas arbolMascotas;
+    private GrafoZonas grafoZonas;
 
     public PetMatchService() {
         listaMascotas = new ListaDobleMascotas();
         pilaAcciones = new PilaAcciones();
         colaAlertas = new ColaPrioridadAlertas();
         arbolMascotas = new ArbolMascotas();
+        grafoZonas = new GrafoZonas();
 
         cargarDatosIniciales();
     }
@@ -32,6 +35,10 @@ public class PetMatchService {
 
         registrarMascota(new Mascota(3, "Rocky", "Perro", "Labrador", "5 años",
                 "Perdida", "Miraflores", 9, 5));
+
+        registrarAvistamiento("Luna", "Los Olivos", "Carlos", "La vi cerca del parque.");
+        registrarAvistamiento("Luna", "Independencia", "Maria", "Parecia caminar hacia la avenida.");
+        registrarAvistamiento("Luna", "Comas", "Ana", "La vi cerca de una tienda.");
     }
 
     public void registrarMascota(Mascota mascota) {
@@ -138,4 +145,21 @@ public class PetMatchService {
         return texto.toString();
     }
 
+    public void conectarZonas(String zonaA, String zonaB) {
+        grafoZonas.conectarZonas(zonaA, zonaB);
+        pilaAcciones.push("Se conectaron las zonas " + zonaA + " y " + zonaB);
+    }
+
+    public String mostrarMapaZonas() {
+        return grafoZonas.mostrarConexiones();
+    }
+
+    public void registrarAvistamiento(String mascota, String ultimaZona, String persona, String comentario) {
+        grafoZonas.registrarAvistamiento(mascota, ultimaZona, persona, comentario);
+        pilaAcciones.push("Se registró un avistamiento de " + mascota + " en " + ultimaZona);
+    }
+
+    public String mostrarSeguimientoAvistamientos() {
+        return grafoZonas.mostrarSeguimientoAvistamientos();
+    }
 }
