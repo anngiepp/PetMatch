@@ -91,4 +91,32 @@ public class ListaDobleMascotas {
         return texto.toString();
     }
 
+    public Mascota[] convertirAArreglo() {
+        int cantidad = contar();
+        Mascota[] arreglo = new Mascota[cantidad];
+
+        NodoMascota actual = cabeza;
+        int indice = 0;
+
+        while (actual != null) {
+            arreglo[indice] = actual.dato;
+            indice++;
+            actual = actual.siguiente;
+        }
+
+        return arreglo;
+    }
+
+    public int contar() {
+        int contador = 0;
+        NodoMascota actual = cabeza;
+
+        while (actual != null) {
+            contador++;
+            actual = actual.siguiente;
+        }
+
+        return contador;
+    }
+
 }

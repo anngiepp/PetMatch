@@ -5,6 +5,7 @@ import structures.ArbolMascotas;
 import structures.ColaPrioridadAlertas;
 import structures.ListaDobleMascotas;
 import structures.PilaAcciones;
+import sorting.Ordenamientos;
 
 public class PetMatchService {
 
@@ -102,4 +103,39 @@ public class PetMatchService {
     public String deshacerUltimaAccion() {
         return pilaAcciones.pop();
     }
+
+    public String ordenarPorUrgencia() {
+        Mascota[] arreglo = listaMascotas.convertirAArreglo();
+
+        if (arreglo.length == 0) {
+            return "No hay reportes para ordenar.";
+        }
+
+        Ordenamientos.quickSortPorUrgencia(arreglo, 0, arreglo.length - 1);
+
+        return convertirArregloATexto(arreglo);
+    }
+
+    public String ordenarPorDiasDesaparecida() {
+        Mascota[] arreglo = listaMascotas.convertirAArreglo();
+
+        if (arreglo.length == 0) {
+            return "No hay reportes para ordenar.";
+        }
+
+        Ordenamientos.insertionSortPorDias(arreglo);
+
+        return convertirArregloATexto(arreglo);
+    }
+
+    private String convertirArregloATexto(Mascota[] arreglo) {
+        StringBuilder texto = new StringBuilder();
+
+        for (Mascota mascota : arreglo) {
+            texto.append(mascota.toString()).append("\n");
+        }
+
+        return texto.toString();
+    }
+
 }
