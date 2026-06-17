@@ -42,6 +42,7 @@ public class PetMatchFrame extends JFrame {
         pestanas.addTab("Alertas urgentes", crearPanelAlertas());
         pestanas.addTab("Historial", crearPanelHistorial());
         pestanas.addTab("Centro de Busqueda", crearPanelCentroBusqueda());
+        pestanas.addTab("Organizacion de Reportes", crearPanelOrganizacionReportes());
 
         areaResultado = new JTextArea();
         areaResultado.setEditable(false);
@@ -75,7 +76,7 @@ public class PetMatchFrame extends JFrame {
         txtUrgencia = new JTextField();
         txtDias = new JTextField();
 
-        cmbEstado = new JComboBox<>(new String[]{"Perdida", "Encontrada"});
+        cmbEstado = new JComboBox<>(new String[] { "Perdida", "Encontrada" });
 
         agregarCampo(panel, gbc, 0, "ID:", txtId);
         agregarCampo(panel, gbc, 1, "Nombre:", txtNombre);
@@ -238,6 +239,42 @@ public class PetMatchFrame extends JFrame {
         return panel;
     }
 
+    private JPanel crearPanelOrganizacionReportes() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
+
+        JLabel titulo = new JLabel("Organizacion de reportes");
+        titulo.setFont(new Font("Arial", Font.BOLD, 18));
+
+        JButton btnOrdenarUrgencia = new JButton("Ordenar por urgencia");
+        JButton btnOrdenarDias = new JButton("Ordenar por dias desaparecida");
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        panel.add(titulo, gbc);
+
+        gbc.gridwidth = 1;
+
+        gbc.gridy = 1;
+        gbc.gridx = 0;
+        panel.add(btnOrdenarUrgencia, gbc);
+
+        gbc.gridx = 1;
+        panel.add(btnOrdenarDias, gbc);
+
+        btnOrdenarUrgencia.addActionListener(e -> areaResultado.setText(service.ordenarPorUrgencia()));
+
+        btnOrdenarDias.addActionListener(e -> areaResultado.setText(service.ordenarPorDiasDesaparecida()));
+
+        return panel;
+    }
+
     private void agregarCampo(JPanel panel, GridBagConstraints gbc, int fila, String texto, JComponent componente) {
         gbc.gridy = fila;
 
@@ -269,7 +306,8 @@ public class PetMatchFrame extends JFrame {
             limpiarCamposReporte();
 
         } catch (Exception e) {
-            areaResultado.setText("Error: revisa que ID, urgencia y dias sean numeros. La edad puede ser texto, por ejemplo: 8 meses o 2 anios.");
+            areaResultado.setText(
+                    "Error: revisa que ID, urgencia y dias sean numeros. La edad puede ser texto, por ejemplo: 8 meses o 2 anios.");
         }
     }
 
