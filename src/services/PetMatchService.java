@@ -7,6 +7,10 @@ import structures.ColaPrioridadAlertas;
 import structures.GrafoZonas;
 import structures.ListaDobleMascotas;
 import structures.PilaAcciones;
+import models.Administrador;
+import models.Reportante;
+import models.Usuario;
+import models.Voluntario;
 
 public class PetMatchService {
 
@@ -161,5 +165,22 @@ public class PetMatchService {
 
     public String mostrarSeguimientoAvistamientos() {
         return grafoZonas.mostrarSeguimientoAvistamientos();
+    }
+
+    public String mostrarUsuariosSistema() {
+        Usuario[] usuarios = new Usuario[3];
+
+        usuarios[0] = new Reportante(1, "Angie", "angie@correo.com", 5);
+        usuarios[1] = new Voluntario(2, "Maria", "maria@correo.com", "Los Olivos");
+        usuarios[2] = new Administrador(3, "Carlos", "carlos@correo.com", "Total");
+
+        StringBuilder texto = new StringBuilder();
+        texto.append("Usuarios del sistema\n\n");
+
+        for (Usuario usuario : usuarios) {
+            texto.append(usuario.toString()).append("\n");
+        }
+
+        return texto.toString();
     }
 }

@@ -49,6 +49,7 @@ public class PetMatchFrame extends JFrame {
         pestanas.addTab("Centro de Busqueda", crearPanelCentroBusqueda());
         pestanas.addTab("Organizacion de Reportes", crearPanelOrganizacionReportes());
         pestanas.addTab("Seguimiento de Avistamientos", crearPanelSeguimientoAvistamientos());
+        pestanas.addTab("Usuarios del Sistema", crearPanelUsuariosSistema());
 
         areaResultado = new JTextArea();
         areaResultado.setEditable(false);
@@ -321,6 +322,34 @@ public class PetMatchFrame extends JFrame {
 
         btnRegistrarAvistamiento.addActionListener(e -> registrarAvistamiento());
         btnVerSeguimiento.addActionListener(e -> areaResultado.setText(service.mostrarSeguimientoAvistamientos()));
+
+        return panel;
+    }
+
+    private JPanel crearPanelUsuariosSistema() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
+
+        JLabel titulo = new JLabel("Usuarios del sistema");
+        titulo.setFont(new Font("Arial", Font.BOLD, 18));
+
+        JButton btnMostrarUsuarios = new JButton("Mostrar usuarios registrados");
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        panel.add(titulo, gbc);
+
+        gbc.gridy = 1;
+        gbc.gridx = 0;
+        panel.add(btnMostrarUsuarios, gbc);
+
+        btnMostrarUsuarios.addActionListener(e -> areaResultado.setText(service.mostrarUsuariosSistema()));
 
         return panel;
     }
