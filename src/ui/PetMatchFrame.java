@@ -26,11 +26,13 @@ public class PetMatchFrame extends JFrame {
     private JTextField txtDescripcionAlerta;
     private JTextField txtPrioridadAlerta;
 
+    private JTextField txtIdBusquedaRapida;
+
     public PetMatchFrame() {
         service = new PetMatchService();
 
-        setTitle("PetMatch Rescue");
-        setSize(950, 650);
+        setTitle("PetMatch Rescue - Entrega 2");
+        setSize(950, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -39,13 +41,14 @@ public class PetMatchFrame extends JFrame {
         pestanas.addTab("Reportes", crearPanelReportes());
         pestanas.addTab("Alertas urgentes", crearPanelAlertas());
         pestanas.addTab("Historial", crearPanelHistorial());
+        pestanas.addTab("Centro de Busqueda", crearPanelCentroBusqueda());
 
         areaResultado = new JTextArea();
         areaResultado.setEditable(false);
         areaResultado.setFont(new Font("Consolas", Font.PLAIN, 14));
 
         JScrollPane scroll = new JScrollPane(areaResultado);
-        scroll.setPreferredSize(new Dimension(950, 220));
+        scroll.setPreferredSize(new Dimension(950, 240));
 
         add(pestanas, BorderLayout.CENTER);
         add(scroll, BorderLayout.SOUTH);
@@ -78,11 +81,11 @@ public class PetMatchFrame extends JFrame {
         agregarCampo(panel, gbc, 1, "Nombre:", txtNombre);
         agregarCampo(panel, gbc, 2, "Especie:", txtEspecie);
         agregarCampo(panel, gbc, 3, "Raza:", txtRaza);
-        agregarCampo(panel, gbc, 4, "Edad (ej: 8 meses, 2 años):", txtEdad);
+        agregarCampo(panel, gbc, 4, "Edad (ej: 8 meses, 2 anios):", txtEdad);
         agregarCampo(panel, gbc, 5, "Estado:", cmbEstado);
         agregarCampo(panel, gbc, 6, "Zona:", txtZona);
         agregarCampo(panel, gbc, 7, "Urgencia 1 a 10:", txtUrgencia);
-        agregarCampo(panel, gbc, 8, "Días desaparecida:", txtDias);
+        agregarCampo(panel, gbc, 8, "Dias desaparecida:", txtDias);
 
         JButton btnRegistrar = new JButton("Registrar reporte");
         JButton btnBuscar = new JButton("Buscar por ID");
@@ -125,7 +128,7 @@ public class PetMatchFrame extends JFrame {
         txtPrioridadAlerta = new JTextField();
 
         agregarCampo(panel, gbc, 0, "Zona de alerta:", txtZonaAlerta);
-        agregarCampo(panel, gbc, 1, "Descripción:", txtDescripcionAlerta);
+        agregarCampo(panel, gbc, 1, "Descripcion:", txtDescripcionAlerta);
         agregarCampo(panel, gbc, 2, "Prioridad 1 a 10:", txtPrioridadAlerta);
 
         JButton btnRegistrarAlerta = new JButton("Registrar alerta");
@@ -164,8 +167,8 @@ public class PetMatchFrame extends JFrame {
         gbc.weightx = 1;
 
         JButton btnVerHistorial = new JButton("Ver historial");
-        JButton btnUltimaAccion = new JButton("Ver última acción");
-        JButton btnDeshacer = new JButton("Deshacer última acción");
+        JButton btnUltimaAccion = new JButton("Ver ultima accion");
+        JButton btnDeshacer = new JButton("Deshacer ultima accion");
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -181,6 +184,56 @@ public class PetMatchFrame extends JFrame {
         btnVerHistorial.addActionListener(e -> areaResultado.setText(service.mostrarHistorial()));
         btnUltimaAccion.addActionListener(e -> areaResultado.setText(service.verUltimaAccion()));
         btnDeshacer.addActionListener(e -> areaResultado.setText(service.deshacerUltimaAccion()));
+
+        return panel;
+    }
+
+    private JPanel crearPanelCentroBusqueda() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
+
+        txtIdBusquedaRapida = new JTextField();
+
+        JLabel titulo = new JLabel("Centro de busqueda rapida de reportes");
+        titulo.setFont(new Font("Arial", Font.BOLD, 18));
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        panel.add(titulo, gbc);
+
+        gbc.gridwidth = 1;
+
+        agregarCampo(panel, gbc, 1, "ID del reporte:", txtIdBusquedaRapida);
+
+        JButton btnBuscarRapido = new JButton("Buscar reporte rapido");
+        JButton btnOrdenadosId = new JButton("Reportes ordenados por ID");
+        JButton btnVistaJerarquica = new JButton("Vista jerarquica de reportes");
+        JButton btnVistaProcesamiento = new JButton("Vista de procesamiento");
+
+        gbc.gridy = 2;
+        gbc.gridx = 0;
+        panel.add(btnBuscarRapido, gbc);
+
+        gbc.gridx = 1;
+        panel.add(btnOrdenadosId, gbc);
+
+        gbc.gridy = 3;
+        gbc.gridx = 0;
+        panel.add(btnVistaJerarquica, gbc);
+
+        gbc.gridx = 1;
+        panel.add(btnVistaProcesamiento, gbc);
+
+        btnBuscarRapido.addActionListener(e -> buscarReporteRapido());
+        btnOrdenadosId.addActionListener(e -> areaResultado.setText(service.mostrarArbolInOrder()));
+        btnVistaJerarquica.addActionListener(e -> areaResultado.setText(service.mostrarArbolPreOrder()));
+        btnVistaProcesamiento.addActionListener(e -> areaResultado.setText(service.mostrarArbolPostOrder()));
 
         return panel;
     }
@@ -216,7 +269,7 @@ public class PetMatchFrame extends JFrame {
             limpiarCamposReporte();
 
         } catch (Exception e) {
-            areaResultado.setText("Error: revisa que ID, urgencia y días sean números. La edad puede ser texto, por ejemplo: 8 meses o 2 años.");
+            areaResultado.setText("Error: revisa que ID, urgencia y dias sean numeros. La edad puede ser texto, por ejemplo: 8 meses o 2 anios.");
         }
     }
 
@@ -226,13 +279,29 @@ public class PetMatchFrame extends JFrame {
             Mascota mascota = service.buscarMascota(id);
 
             if (mascota != null) {
-                areaResultado.setText("Reporte encontrado:\n" + mascota);
+                areaResultado.setText("Reporte encontrado en la lista de reportes:\n" + mascota);
             } else {
-                areaResultado.setText("No se encontró un reporte con ese ID.");
+                areaResultado.setText("No se encontro un reporte con ese ID.");
             }
 
         } catch (Exception e) {
-            areaResultado.setText("Error: ingresa un ID válido.");
+            areaResultado.setText("Error: ingresa un ID valido.");
+        }
+    }
+
+    private void buscarReporteRapido() {
+        try {
+            int id = Integer.parseInt(txtIdBusquedaRapida.getText());
+            Mascota mascota = service.buscarMascotaEnArbol(id);
+
+            if (mascota != null) {
+                areaResultado.setText("Reporte encontrado rapidamente:\n" + mascota);
+            } else {
+                areaResultado.setText("No se encontro un reporte con ese ID.");
+            }
+
+        } catch (Exception e) {
+            areaResultado.setText("Error: ingresa un ID valido para la busqueda.");
         }
     }
 
@@ -243,11 +312,11 @@ public class PetMatchFrame extends JFrame {
             if (service.eliminarReporte(id)) {
                 areaResultado.setText("Reporte eliminado correctamente.\n\n" + service.mostrarReportes());
             } else {
-                areaResultado.setText("No se encontró un reporte con ese ID.");
+                areaResultado.setText("No se encontro un reporte con ese ID.");
             }
 
         } catch (Exception e) {
-            areaResultado.setText("Error: ingresa un ID válido.");
+            areaResultado.setText("Error: ingresa un ID valido.");
         }
     }
 
@@ -265,7 +334,7 @@ public class PetMatchFrame extends JFrame {
             txtPrioridadAlerta.setText("");
 
         } catch (Exception e) {
-            areaResultado.setText("Error: ingresa una prioridad válida.");
+            areaResultado.setText("Error: ingresa una prioridad valida.");
         }
     }
 

@@ -1,6 +1,7 @@
 package services;
 
 import models.Mascota;
+import structures.ArbolMascotas;
 import structures.ColaPrioridadAlertas;
 import structures.ListaDobleMascotas;
 import structures.PilaAcciones;
@@ -10,11 +11,13 @@ public class PetMatchService {
     private ListaDobleMascotas listaMascotas;
     private PilaAcciones pilaAcciones;
     private ColaPrioridadAlertas colaAlertas;
+    private ArbolMascotas arbolMascotas;
 
     public PetMatchService() {
         listaMascotas = new ListaDobleMascotas();
         pilaAcciones = new PilaAcciones();
         colaAlertas = new ColaPrioridadAlertas();
+        arbolMascotas = new ArbolMascotas();
 
         cargarDatosIniciales();
     }
@@ -26,12 +29,13 @@ public class PetMatchService {
         registrarMascota(new Mascota(2, "Michi", "Gato", "Criollo", "2 años",
                 "Encontrada", "San Miguel", 7, 1));
 
-        registrarMascota(new Mascota(3, "Rocky", "Perro", "Labrador", "5 meses",
+        registrarMascota(new Mascota(3, "Rocky", "Perro", "Labrador", "5 años",
                 "Perdida", "Miraflores", 9, 5));
     }
 
     public void registrarMascota(Mascota mascota) {
         listaMascotas.insertar(mascota);
+        arbolMascotas.insertar(mascota);
         pilaAcciones.push("Se registró el reporte de " + mascota.getNombre());
     }
 
@@ -49,6 +53,22 @@ public class PetMatchService {
 
     public Mascota buscarMascota(int id) {
         return listaMascotas.buscarPorId(id);
+    }
+
+    public Mascota buscarMascotaEnArbol(int id) {
+        return arbolMascotas.buscar(id);
+    }
+
+    public String mostrarArbolInOrder() {
+        return arbolMascotas.mostrarInOrder();
+    }
+
+    public String mostrarArbolPreOrder() {
+        return arbolMascotas.mostrarPreOrder();
+    }
+
+    public String mostrarArbolPostOrder() {
+        return arbolMascotas.mostrarPostOrder();
     }
 
     public String mostrarReportes() {
