@@ -180,3 +180,11 @@ src
 └── Main.java
 
 ---
+
+# Avance Entrega 3
+
+Durante la segunda se corrigio parte de la interfaz de las vistas hechas anteriormante y como adicional se agrego una pestaña como resumen de acciones hechas en la aplicación.
+
+## Dashboard
+
+![Dashboard](evidencias/dashboard.png)

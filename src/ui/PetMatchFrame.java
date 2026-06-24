@@ -53,6 +53,25 @@ public class PetMatchFrame extends JFrame {
         pestanas.addTab("Dashboard", crearPanelDashboard());
 
         areaResultado = new JTextArea();
+
+        areaResultado.setEditable(false);
+        areaResultado.setLineWrap(true);
+        areaResultado.setWrapStyleWord(true);
+
+        areaResultado.setBackground(new Color(248, 250, 252));
+        areaResultado.setForeground(new Color(33, 37, 41));
+
+        areaResultado.setFont(
+                new Font("Segoe UI",
+                        Font.PLAIN,
+                        14));
+
+        areaResultado.setMargin(
+                new Insets(
+                        15,
+                        15,
+                        15,
+                        15));
         areaResultado.setEditable(false);
         areaResultado.setFont(new Font("Consolas", Font.PLAIN, 14));
 
@@ -521,5 +540,52 @@ public class PetMatchFrame extends JFrame {
                         service.mostrarDashboard()));
 
         return panel;
+    }
+
+    private JPanel crearCard(String titulo, String valor) {
+
+        JPanel card = new JPanel();
+
+        card.setLayout(
+                new BorderLayout());
+
+        card.setBackground(
+                Color.WHITE);
+
+        card.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(
+                                new Color(220, 220, 220)),
+                        BorderFactory.createEmptyBorder(
+                                15,
+                                15,
+                                15,
+                                15)));
+
+        JLabel lblTitulo = new JLabel(titulo);
+
+        lblTitulo.setFont(
+                new Font(
+                        "Segoe UI",
+                        Font.BOLD,
+                        16));
+
+        JLabel lblValor = new JLabel(
+                valor,
+                SwingConstants.CENTER);
+
+        lblValor.setFont(
+                new Font(
+                        "Segoe UI",
+                        Font.BOLD,
+                        32));
+
+        card.add(lblTitulo,
+                BorderLayout.NORTH);
+
+        card.add(lblValor,
+                BorderLayout.CENTER);
+
+        return card;
     }
 }
