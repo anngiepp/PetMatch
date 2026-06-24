@@ -183,4 +183,31 @@ public class PetMatchService {
 
         return texto.toString();
     }
+
+    public String mostrarDashboard() {
+
+        StringBuilder texto = new StringBuilder();
+
+        texto.append("RESUMEN GENERAL DEL SISTEMA\n\n");
+
+        texto.append("Total de reportes: ")
+                .append(listaMascotas.contar())
+                .append("\n");
+
+        texto.append("Mascotas perdidas: ")
+                .append(listaMascotas.contarPerdidas())
+                .append("\n");
+
+        texto.append("Mascotas encontradas: ")
+                .append(listaMascotas.contarEncontradas())
+                .append("\n");
+
+        texto.append("Alertas activas: ")
+                .append(colaAlertas.contarAlertas())
+                .append("\n");
+
+        texto.append("Usuarios registrados: 3\n");
+
+        return texto.toString();
+    }
 }

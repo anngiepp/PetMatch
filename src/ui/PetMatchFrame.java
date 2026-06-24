@@ -50,6 +50,7 @@ public class PetMatchFrame extends JFrame {
         pestanas.addTab("Organizacion de Reportes", crearPanelOrganizacionReportes());
         pestanas.addTab("Seguimiento de Avistamientos", crearPanelSeguimientoAvistamientos());
         pestanas.addTab("Usuarios del Sistema", crearPanelUsuariosSistema());
+        pestanas.addTab("Dashboard", crearPanelDashboard());
 
         areaResultado = new JTextArea();
         areaResultado.setEditable(false);
@@ -487,5 +488,38 @@ public class PetMatchFrame extends JFrame {
         txtUrgencia.setText("");
         txtDias.setText("");
         cmbEstado.setSelectedIndex(0);
+    }
+
+    private JPanel crearPanelDashboard() {
+
+        JPanel panel = new JPanel(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        JLabel titulo = new JLabel("Resumen del sistema");
+
+        titulo.setFont(
+                new Font("Arial",
+                        Font.BOLD,
+                        18));
+
+        JButton btnDashboard = new JButton("Actualizar dashboard");
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        panel.add(titulo, gbc);
+
+        gbc.gridy = 1;
+
+        panel.add(btnDashboard, gbc);
+
+        btnDashboard.addActionListener(
+                e -> areaResultado.setText(
+                        service.mostrarDashboard()));
+
+        return panel;
     }
 }

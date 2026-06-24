@@ -70,4 +70,18 @@ public class ColaPrioridadAlertas {
 
         return texto.toString();
     }
+
+    public int contarAlertas() {
+
+        int contador = 0;
+        NodoAlerta actual = frente;
+
+        while (actual != null) {
+            contador++;
+            actual = actual.siguiente;
+        }
+
+        return contador;
+    }
+
 }

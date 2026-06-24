@@ -119,4 +119,38 @@ public class ListaDobleMascotas {
         return contador;
     }
 
+    public int contarPerdidas() {
+
+        int contador = 0;
+        NodoMascota actual = cabeza;
+
+        while (actual != null) {
+
+            if (actual.dato.getEstado().equalsIgnoreCase("Perdida")) {
+                contador++;
+            }
+
+            actual = actual.siguiente;
+        }
+
+        return contador;
+    }
+
+    public int contarEncontradas() {
+
+        int contador = 0;
+        NodoMascota actual = cabeza;
+
+        while (actual != null) {
+
+            if (actual.dato.getEstado().equalsIgnoreCase("Encontrada")) {
+                contador++;
+            }
+
+            actual = actual.siguiente;
+        }
+
+        return contador;
+    }
+
 }
